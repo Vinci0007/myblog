@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ &title }}</title>
+    <meta name="keywords" content="{{ &keyWords }}" />
+    <meta name="description" content="{{ &OPT.siteDescription }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.3.2/styles/tomorrow-night-bright.min.css" />
+    <script src="https://cdn.staticfile.org/highlight.js/10.3.2/highlight.min.js"></script>
+    {{ &OPT.codeBeforHead }}
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero__bg"></div>
+        <div class="hero__content">
+          <div class="hero__tag">灵感志 · Living Out</div>
+          <h1>{{ &OPT.siteName }}</h1>
+          <p>{{ &OPT.siteDescription }}</p>
+          <div class="hero__actions">
+            <a class="btn btn--solid" href="/page/1">最新文章</a>
+            <a class="btn btn--ghost" href="#category-hub">主题导航</a>
+          </div>
+        </div>
+        <nav class="hero__nav">
+          <ul>
+            {{ #widgetMenuList }}
+            <li>
+              <a href="{{ &url }}">{{ &title }}</a>
+            </li>
+            {{ /widgetMenuList }}
+          </ul>
+        </nav>
+      </header>
+
+      <main class="layout">
+        <section class="articles">
+          <div class="section-title">
+            <span>Latest Notes</span>
+            <h2>旅居 · 生活 · 创造力</h2>
+          </div>
+          <div class="articles__grid">
+            {{ #articleList.length }}
+            {{ #articleList }}
+            <article class="post-card" id="post-{{ &id }}">
+              <a class="post-card__thumb" href="/article/{{ &id }}/{{ &link }}.html" style="background-image:url('{{ &img }}');">
+                <span class="post-card__date">{{ &createDate10 }}</span>
+              </a>
+              <div class="post-card__body">
+                <div class="post-card__meta">
+                  {{ #category }}
+                  <a href="/category/{{ &. }}">{{ &. }}</a>
+                  {{ /category }}
+                </div>
+                <h3>
+                  <a href="/article/{{ &id }}/{{ &link }}.html">{{ &title }}</a>
+                </h3>
+                <p>{{ &contentText }} ...</p>
+                <div class="post-card__footer">
+                  <div class="post-card__tags">
+                    {{ #tags }}
+                    <a href="/tags/{{ &. }}">#{{ &. }}</a>
+                    {{ /tags }}
+                  </div>
+                  <a class="post-card__more" href="/article/{{ &id }}/{{ &link }}.html">继续阅读</a>
+                </div>
+              </div>
+            </article>
+            {{ /articleList }}
+            {{ /articleList.length }}
+          </div>
+
+          <div class="pagination">
+            {{ #pageNewer }}
+            <a class="pager pager--prev" href="{{ &url }}">← 上一页</a>
+            {{ /pageNewer }}
+            {{ #pageOlder }}
+            <a class="pager pager--next" href="{{ &url }}">下一页 →</a>
+            {{ /pageOlder }}
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <section class="sidebar-card">
+            <p class="sidebar-card__label">最近动态</p>
+            <ul class="sidebar-list">
+              {{ #widgetRecentlyList }}
+              <li>
+                <a href="{{ &url }}">{{ &title }}</a>
+                <span>{{ &createDate10 }}</span>
+              </li>
+              {{ /widgetRecentlyList }}
+            </ul>
+          </section>
+
+          <section class="sidebar-card" id="category-hub">
+            <p class="sidebar-card__label">主题分类</p>
+            <div class="chips">
+              {{ #widgetCategoryList }}
+              <a class="chip" href="/category/{{ &. }}">{{ &. }}</a>
+              {{ /widgetCategoryList }}
+            </div>
+          </section>
+
+          <section class="sidebar-card">
+            <p class="sidebar-card__label">标签</p>
+            <div class="tags-cloud">
+              {{ #widgetTagsList }}
+              <a href="/tags/{{ &. }}">#{{ &. }}</a>
+              {{ /widgetTagsList }}
+            </div>
+          </section>
+
+          <section class="sidebar-card">
+            <p class="sidebar-card__label">灵感链接</p>
+            <ul class="sidebar-links">
+              <li><a href="/admin/" target="_blank">管理后台</a></li>
+              {{ #widgetLinkList }}
+              <li><a href="{{ &url }}" target="_blank">{{ &title }}</a></li>
+              {{ /widgetLinkList }}
+            </ul>
+          </section>
+
+          {{ &OPT.widgetOther }}
+        </aside>
+      </main>
+
+      <footer class="site-footer">
+        <div>
+          <h4>{{ &OPT.siteName }}</h4>
+          <p>{{ &OPT.siteDescription }}</p>
+        </div>
+        <div class="footer-meta">
+          <span>{{ &OPT.copyRight }}</span>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+    {{ &OPT.codeBeforBody }}
+  </body>
+</html>

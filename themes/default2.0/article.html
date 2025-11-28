@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ &articleSingle.title }} - {{ &OPT.siteName }}</title>
+    <meta name="keywords" content="{{ &articleSingle.category }},{{ &articleSingle.tags }}" />
+    <meta name="description" content="{{ &OPT.siteDescription }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.3.2/styles/tomorrow-night-bright.min.css" />
+    <script src="https://cdn.staticfile.org/highlight.js/10.3.2/highlight.min.js"></script>
+    {{ &OPT.codeBeforHead }}
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero hero--article">
+        <div class="hero__bg"></div>
+        <div class="hero__content">
+          <div class="hero__tag">灵感志 · Living Out</div>
+          <h1>{{ &articleSingle.title }}</h1>
+          <p>{{ &OPT.siteDescription }}</p>
+          <div class="article-hero__meta">
+            <span>{{ &articleSingle.createDate10 }}</span>
+            <span>·</span>
+            <span>{{ &OPT.otherCodeA }}</span>
+          </div>
+        </div>
+        <nav class="hero__nav">
+          <ul>
+            {{ #widgetMenuList }}
+            <li>
+              <a href="{{ &url }}">{{ &title }}</a>
+            </li>
+            {{ /widgetMenuList }}
+          </ul>
+        </nav>
+      </header>
+
+      <main class="layout layout--article">
+        <article class="article-card" id="post-{{ &articleSingle.id }}">
+          <div class="article-meta">
+            <div>
+              <p class="article-meta__label">分类</p>
+              <div class="chips">
+                {{ #articleSingle.category }}
+                <a class="chip" href="/category/{{ &. }}">{{ &. }}</a>
+                {{ /articleSingle.category }}
+              </div>
+            </div>
+            <div>
+              <p class="article-meta__label">标签</p>
+              <div class="tags-cloud">
+                {{ #articleSingle.tags }}
+                <a href="/tags/{{ &. }}">#{{ &. }}</a>
+                {{ /articleSingle.tags }}
+              </div>
+            </div>
+          </div>
+          <div class="article-content">
+            {{ &articleSingle.contentHtml }}
+          </div>
+          <div class="article-nav">
+            {{ #articleNewer }}
+            <a class="pager pager--prev" href="{{ &url }}">← {{ &title }}</a>
+            {{ /articleNewer }}
+            {{ #articleOlder }}
+            <a class="pager pager--next" href="{{ &url }}">{{ &title }} →</a>
+            {{ /articleOlder }}
+          </div>
+          {{ &OPT.commentCode }}
+        </article>
+
+        <aside class="sidebar">
+          <section class="sidebar-card">
+            <p class="sidebar-card__label">最近动态</p>
+            <ul class="sidebar-list">
+              {{ #widgetRecentlyList }}
+              <li>
+                <a href="{{ &url }}">{{ &title }}</a>
+                <span>{{ &createDate10 }}</span>
+              </li>
+              {{ /widgetRecentlyList }}
+            </ul>
+          </section>
+
+          <section class="sidebar-card">
+            <p class="sidebar-card__label">主题分类</p>
+            <div class="chips">
+              {{ #widgetCategoryList }}
+              <a class="chip" href="/category/{{ &. }}">{{ &. }}</a>
+              {{ /widgetCategoryList }}
+            </div>
+          </section>
+
+          <section class="sidebar-card">
+            <p class="sidebar-card__label">标签</p>
+            <div class="tags-cloud">
+              {{ #widgetTagsList }}
+              <a href="/tags/{{ &. }}">#{{ &. }}</a>
+              {{ /widgetTagsList }}
+            </div>
+          </section>
+
+          <section class="sidebar-card">
+            <p class="sidebar-card__label">灵感链接</p>
+            <ul class="sidebar-links">
+              <li><a href="/admin/" target="_blank">管理后台</a></li>
+              {{ #widgetLinkList }}
+              <li><a href="{{ &url }}" target="_blank">{{ &title }}</a></li>
+              {{ /widgetLinkList }}
+            </ul>
+          </section>
+
+          {{ &OPT.widgetOther }}
+        </aside>
+      </main>
+
+      <footer class="site-footer">
+        <div>
+          <h4>{{ &OPT.siteName }}</h4>
+          <p>{{ &OPT.siteDescription }}</p>
+        </div>
+        <div class="footer-meta">
+          <span>{{ &OPT.copyRight }}</span>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+    {{ &OPT.codeBeforBody }}
+  </body>
+</html>
+
